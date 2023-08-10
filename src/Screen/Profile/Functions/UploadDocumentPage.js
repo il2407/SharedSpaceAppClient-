@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../../constants";
 
 function UploadPhotoComponent({ navigation }) {
   const [file, setFile] = useState(null);
@@ -29,7 +30,7 @@ function UploadPhotoComponent({ navigation }) {
     formData.append("userID", userID);
 
     axios
-      .post("http://localhost:5000/upload_photo", formData, {
+      .post(`${API_URLS.URL}/upload_photo`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -45,7 +46,7 @@ function UploadPhotoComponent({ navigation }) {
 
   const fetchPhotos = () => {
     axios
-      .get(`http://localhost:5000/get_photos/${groupID}`)
+      .get(`${API_URLS.URL}/get_photos/${groupID}`)
       .then((response) => {
         setPhotos(response.data.photos);
         console.log(response.data.photos);
@@ -81,17 +82,17 @@ function UploadPhotoComponent({ navigation }) {
 
   return (
     <View style={{ padding: 20 }}>
-            <Button title="Back" onPress={() => navigation.goBack()} />
+      <Button title="Back" onPress={() => navigation.goBack()} />
 
       <input type="file" onChange={handleFileChange} />
       <Button title="Upload" onPress={handleSubmit} />
       {message && (
         <Text style={{ textAlign: "center", margin: 10 }}>{message}</Text>
       )}
-        <FlatList
+      <FlatList
         data={photos}
         renderItem={({ item }) => {
-          const imageUrl = `http://localhost:5000/${item.filepath.replace(
+          const imageUrl = `${API_URLS.URL}/${item.filepath.replace(
             /\\/g,
             "/"
           )}`;

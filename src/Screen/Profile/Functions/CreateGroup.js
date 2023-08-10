@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
+import { API_URLS } from "../../../constants";
 
 const CreateGroup = ({ navigation }) => {
   // const [userID, setUserID] = useState(0);
@@ -30,28 +31,6 @@ const CreateGroup = ({ navigation }) => {
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
 
-  // const handleGetUserIdDetails = async () => {
-  //   const data = JSON.stringify({
-  //     email: email, // replace with the email of the current user
-  //   });
-  //   try {
-  //     console.log(data);
-  //     const response = await axios.post(
-  //       "http://localhost:5000/id_from_email",
-  //       data,
-  //       {
-  //         headers: { "Content-Type": "application/json" },
-  //       }
-  //     );
-  //     setUserID(response.data.user);
-  //     console.log(userID);
-  //     console.log(response.data.user);
-  //   } catch (error) {
-  //     console.log(error);
-  //     Alert.alert("Error", "Unable to get group details");
-  //   }
-  // };
-
   const handleCreateNewGroup = async () => {
     console.log("end", dateTermination);
 
@@ -65,10 +44,7 @@ const CreateGroup = ({ navigation }) => {
         end_of_contract: dateTermination,
       };
 
-      const response = await axios.post(
-        "http://localhost:5000/add_group",
-        data
-      );
+      const response = await axios.post(`${API_URLS.URL}/add_group`, data);
       if (response.status === 200) {
         showMessage({
           message: "Success",
@@ -90,7 +66,7 @@ const CreateGroup = ({ navigation }) => {
   };
   const handleSendInvitation = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/invite_user", {
+      const response = await axios.post(`${API_URLS.URL}/invite_user`, {
         group_id: groupID,
         email: email,
       });
@@ -120,7 +96,7 @@ const CreateGroup = ({ navigation }) => {
       const data = { group_id: groupID };
 
       const response = await axios.post(
-        "http://localhost:5000/members_from_group_id",
+        `${API_URLS.URL}/members_from_group_id`,
         data
       );
       console.log(response);

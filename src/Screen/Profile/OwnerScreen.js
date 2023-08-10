@@ -80,8 +80,7 @@ export default function OwnerScreen({ navigation }) {
           <Image
             style={styles.image}
             source={{
-              uri:
-                "https://thumbs.dreamstime.com/b/logout-isolated-special-cyan-blue-round-button-abstract-illustration-logout-special-cyan-blue-round-button-103957079.jpg",
+              uri: "https://thumbs.dreamstime.com/b/logout-isolated-special-cyan-blue-round-button-abstract-illustration-logout-special-cyan-blue-round-button-103957079.jpg",
             }}
             resizeMode="cover"
           />

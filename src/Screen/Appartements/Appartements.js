@@ -14,6 +14,8 @@ import axios from "axios";
 import io from "socket.io-client";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../constants";
+
 
 export const SLIDER_WIDTH = Dimensions.get("window").width + 2;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
@@ -27,7 +29,7 @@ export default function Appartements({ navigation }) {
   const createRoom = (groupName, groupDescription, groupID) => {
     console.log(userName, userID, groupID);
     const roomName = `${groupName} - ${groupDescription} : for user ${userName}`;
-    const socket = io("http://localhost:5000");
+    const socket = io(`${API_URLS.URL}`);
     console.log(groupName, groupDescription, groupID);
     // Emit room creation event with additional parameters
     socket.emit("add_room", {
@@ -52,7 +54,7 @@ export default function Appartements({ navigation }) {
 
       // Fetching data using Axios
       axios
-        .post("http://localhost:5000/get_available_groups")
+        .post(`${API_URLS.URL}/get_available_groups`)
         .then((response) => {
           setGroups(response.data.group_details);
           console.log("response.data", response.data.group_details);

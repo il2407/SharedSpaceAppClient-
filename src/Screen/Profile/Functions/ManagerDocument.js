@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../../constants";
 
 function ManagerDocument() {
   const [photos, setPhotos] = useState([]);
@@ -20,7 +21,7 @@ function ManagerDocument() {
     if (groupID) {
       // Fetch photos once groupID is set
       axios
-        .get(`http://localhost:5000/fetch_photos/${groupID}`)
+        .get(`${API_URLS.URL}/fetch_photos/${groupID}`)
         .then((response) => {
           setPhotos(response.data);
         })

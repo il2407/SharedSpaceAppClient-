@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
+import { API_URLS } from "../../../constants";
 
 const GroupPage = ({ navigation }) => {
   const [userID, setUserID] = useState(0);
@@ -23,7 +24,7 @@ const GroupPage = ({ navigation }) => {
   const [groupMaxMembers, setGroupMaxMembers] = useState(0);
   const [groupDescription, setGroupDescription] = useState("");
   const [dateTermination, setDateTermination] = useState("");
-  const [isFinishStatus, setIsFinishStatus] = useState(false); // Added state for is_finish status
+  const [isFinishStatus, setIsFinishStatus] = useState(false);
 
   const [isFocused, setIsFocused] = useState(false);
 
@@ -33,7 +34,7 @@ const GroupPage = ({ navigation }) => {
   const handleToggleFinishStatus = async () => {
     try {
       // Make an API call to the backend to toggle the is_finish status
-      const response = await axios.post("http://localhost:5000/toggle_finish", {
+      const response = await axios.post(`${API_URLS.URL}/toggle_finish`, {
         user_id: userID,
       });
 
@@ -67,7 +68,7 @@ const GroupPage = ({ navigation }) => {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/add_user_to_group",
+        `${API_URLS.URL}/add_user_to_group`,
         data
       );
 
@@ -98,7 +99,7 @@ const GroupPage = ({ navigation }) => {
 
   const handleSendInvitation = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/invite_user", {
+      const response = await axios.post(`${API_URLS.URL}/invite_user`, {
         group_id: groupID,
         email: email,
       });
@@ -128,7 +129,7 @@ const GroupPage = ({ navigation }) => {
       const data = { group_id: groupID };
 
       const response = await axios.post(
-        "http://localhost:5000/members_from_group_id",
+        `${API_URLS.URL}/members_from_group_id`,
         data
       );
       console.log(response);

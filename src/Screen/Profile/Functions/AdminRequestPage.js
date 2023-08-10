@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { API_URLS } from "../../../constants";
 
 const AdminRequestPage = () => {
   const [faults, setFaults] = useState([]);
@@ -23,7 +24,7 @@ const AdminRequestPage = () => {
     });
     try {
       const response = await axios.post(
-        "http://localhost:5000/faults_from_group_id",
+        `${API_URLS.URL}/faults_from_group_id`,
         data,
         {
           headers: { "Content-Type": "application/json" },
@@ -36,7 +37,7 @@ const AdminRequestPage = () => {
   };
   const handleDelete = async (faultId) => {
     try {
-      const response = await axios.post(`http://localhost:5000/delete_call`, {
+      const response = await axios.post(`${API_URLS.URL}/delete_call`, {
         fault_id: faultId,
       });
 

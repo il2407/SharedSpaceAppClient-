@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../constants";
 
 const OwnerChatList = ({ navigation }) => {
   const [rooms, setRooms] = useState([]);
@@ -12,7 +13,7 @@ const OwnerChatList = ({ navigation }) => {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    const socket = io(`${API_URLS.URL}`);
 
     socket.emit("get_rooms");
 
@@ -35,7 +36,7 @@ const OwnerChatList = ({ navigation }) => {
       const fetchGroups = async () => {
         try {
           const response = await axios.post(
-            "http://localhost:5000/get_group_details_by_id",
+            `${API_URLS.URL}/get_group_details_by_id`,
             { user_id: userID }
           );
           setGroups(response.data);

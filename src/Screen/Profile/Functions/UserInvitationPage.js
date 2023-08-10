@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../../constants";
 
 const UserInvitationPage = ({ navigation }) => {
   // Destructure navigation from props
@@ -29,7 +30,7 @@ const UserInvitationPage = ({ navigation }) => {
       async function fetchUserDetails() {
         try {
           const response = await axios.post(
-            "http://localhost:5000/get_user_details_by_id",
+            `${API_URLS.URL}/get_user_details_by_id`,
             {
               user_id: userID,
             }
@@ -40,7 +41,7 @@ const UserInvitationPage = ({ navigation }) => {
 
           // After getting the email, check for invitations
           const invitationResponse = await axios.get(
-            `http://localhost:5000/check_invitations/${userDetails.email}`
+            `${API_URLS.URL}/check_invitations/${userDetails.email}`
           );
           if (invitationResponse.data && invitationResponse.data.length > 0) {
             // Assuming the response is an array of group IDs, and setting the first one
@@ -69,7 +70,7 @@ const UserInvitationPage = ({ navigation }) => {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/add_user_to_group",
+        `${API_URLS.URL}/add_user_to_group`,
         data
       );
 

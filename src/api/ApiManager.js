@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_URLS } from "../constants";
 
 const ApiManager = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: `${API_URLS.URL}`,
   responseType: "json",
   withCredentials: false,
 });

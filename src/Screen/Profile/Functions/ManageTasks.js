@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { API_URLS } from "../../../constants";
 
 const ManageTasks = () => {
   const [groupID, setGroupID] = useState("");
@@ -31,7 +32,7 @@ const ManageTasks = () => {
     });
     try {
       const response = await axios.post(
-        "http://localhost:5000/missions_from_group_id",
+        `${API_URLS.URL}/missions_from_group_id`,
         data,
         {
           headers: { "Content-Type": "application/json" },
@@ -50,7 +51,7 @@ const ManageTasks = () => {
       mission_description: taskDescription,
     });
     try {
-      await axios.post("http://localhost:5000/add_mission", data, {
+      await axios.post(`${API_URLS.URL}/add_mission`, data, {
         headers: { "Content-Type": "application/json" },
       });
       setTaskName("");
@@ -69,7 +70,7 @@ const ManageTasks = () => {
       notification_name: `${userName} added new task - ${taskName}`,
     });
     try {
-      await axios.post("http://localhost:5000/add_notification", data, {
+      await axios.post(`${API_URLS.URL}/add_notification`, data, {
         headers: { "Content-Type": "application/json" },
       });
     } catch (error) {
@@ -82,7 +83,7 @@ const ManageTasks = () => {
       mission_id: taskId,
     });
     try {
-      await axios.post("http://localhost:5000/remove_mission", data, {
+      await axios.post(`${API_URLS.URL}/remove_mission`, data, {
         headers: { "Content-Type": "application/json" },
       });
 

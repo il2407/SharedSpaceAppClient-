@@ -66,7 +66,7 @@ export default function Login({ navigation }) {
     try {
       console.log(data);
       const response = await axios.post(
-        "http://localhost:5000/group_id_from_user_id",
+        `${API_URLS.URL}/group_id_from_user_id`,
         data,
         {
           headers: { "Content-Type": "application/json" },
@@ -89,13 +89,9 @@ export default function Login({ navigation }) {
     });
     try {
       console.log(data);
-      const response = await axios.post(
-        "http://localhost:5000/id_from_email",
-        data,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await axios.post(`${API_URLS.URL}/id_from_email`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
       setUserID(response.data.user);
       console.log(userID);
       console.log(response.data.user);
@@ -112,7 +108,7 @@ export default function Login({ navigation }) {
     try {
       console.log(data);
       const response = await axios.post(
-        "http://localhost:5000/get_user_details_by_id",
+        `${API_URLS.URL}/get_user_details_by_id`,
         data,
         {
           headers: { "Content-Type": "application/json" },

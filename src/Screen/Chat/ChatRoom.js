@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Button, FlatList } from "react-native";
 import io from "socket.io-client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFocusEffect, useNavigation } from "@react-navigation/native"; // Import `useNavigation`
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { API_URLS } from "../../constants"; // Import `useNavigation`
 
 const ChatRoom = ({ route }) => {
   const { room } = route.params;
@@ -16,7 +17,7 @@ const ChatRoom = ({ route }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5000");
+    const newSocket = io(`${API_URLS.URL}`);
 
     // Set up the listeners first
     newSocket.on("chat_history", (data) => {

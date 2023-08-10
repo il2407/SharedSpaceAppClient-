@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../constants";
 
 export default function NotificationScreen({ navigation }) {
   const [userID, setUserID] = useState("");
@@ -39,7 +40,7 @@ export default function NotificationScreen({ navigation }) {
     });
     try {
       const response = await axios.post(
-        "http://localhost:5000/notifications_from_group_id",
+        `${API_URLS.URL}/notifications_from_group_id`,
         data,
         {
           headers: { "Content-Type": "application/json" },
@@ -57,7 +58,7 @@ export default function NotificationScreen({ navigation }) {
   const removeNotification = async (notificationId) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/remove_notification",
+        `${API_URLS.URL}/remove_notification`,
         { notification_id: notificationId },
         {
           headers: { "Content-Type": "application/json" },

@@ -9,7 +9,5 @@ export const COLORS = {
 
 // You can also define other constants like API endpoints, configurations, etc.
 export const API_URLS = {
-  LOGIN: "http://localhost:5000/login",
-  USER_DETAILS: "http://localhost:5000/get_user_details",
-  // ... add other endpoints or configurations as needed
+  URL: "http://localhost:5000",
 };

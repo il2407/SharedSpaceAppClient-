@@ -10,6 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../../constants";
 
 const JsonList = ({ data }) => (
   <View style={styles.table}>
@@ -60,7 +61,7 @@ const SplitPayments = () => {
       amount: newExpense.amount,
     });
     try {
-      await axios.post("http://localhost:5000/add_outcome", data, {
+      await axios.post(`${API_URLS.URL}/add_outcome`, data, {
         headers: { "Content-Type": "application/json" },
       });
       fetchExpenses();
@@ -76,7 +77,7 @@ const SplitPayments = () => {
     });
     try {
       const response = await axios.post(
-        "http://localhost:5000/outcomes_from_group_id",
+        `${API_URLS.URL}/outcomes_from_group_id`,
         data,
         {
           headers: { "Content-Type": "application/json" },
@@ -100,7 +101,7 @@ const SplitPayments = () => {
       });
       try {
         const response = await axios.post(
-          "http://localhost:5000/user_name_from_id",
+          `${API_URLS.URL}/user_name_from_id`,
           data,
           {
             headers: { "Content-Type": "application/json" },
@@ -128,7 +129,7 @@ const SplitPayments = () => {
       notification_name: `${userName} added new expense on ${newExpense.name} in the amount of  ${newExpense.amount}`,
     });
     try {
-      await axios.post("http://localhost:5000/add_notification", data, {
+      await axios.post(`${API_URLS.URL}/add_notification`, data, {
         headers: { "Content-Type": "application/json" },
       });
     } catch (error) {
@@ -162,7 +163,7 @@ const SplitPayments = () => {
       });
       try {
         const response = await axios.post(
-          "http://localhost:5000/outcomes_from_group_id",
+          `${API_URLS.URL}/outcomes_from_group_id`,
           data,
           {
             headers: { "Content-Type": "application/json" },

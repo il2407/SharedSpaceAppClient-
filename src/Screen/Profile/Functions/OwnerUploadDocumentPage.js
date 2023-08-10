@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../../constants";
 
 function UploadPhotoComponent({ navigation }) {
   const [file, setFile] = useState(null);
@@ -36,7 +37,7 @@ function UploadPhotoComponent({ navigation }) {
       const groupName = groupDetail.group_name;
 
       await axios
-        .get(`http://localhost:5000/get_photos/${groupId}`)
+        .get(`${API_URLS.URL}/get_photos/${groupId}`)
         .then((response) => {
           setPhotos((prevPhotos) => [
             ...prevPhotos,
@@ -60,7 +61,7 @@ function UploadPhotoComponent({ navigation }) {
 
       if (storedUserID) {
         axios
-          .post("http://localhost:5000/get_group_details_by_id", {
+          .post(`${API_URLS.URL}/get_group_details_by_id`, {
             user_id: storedUserID,
           })
           .then((response) => {
@@ -96,7 +97,7 @@ function UploadPhotoComponent({ navigation }) {
             <FlatList
               data={photoGroup.photos}
               renderItem={({ item: photo }) => {
-                const imageUrl = `http://localhost:5000/${photo.filepath.replace(
+                const imageUrl = `${API_URLS.URL}/${photo.filepath.replace(
                   /\\/g,
                   "/"
                 )}`;

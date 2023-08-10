@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Button, FlatList, TextInput } from "react-native";
 import io from "socket.io-client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../constants";
 
 const ChatList = ({ navigation }) => {
   const [rooms, setRooms] = useState([]);
@@ -11,7 +12,7 @@ const ChatList = ({ navigation }) => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    const socket = io(`${API_URLS.URL}`);
 
     // Fetch existing rooms
     socket.emit("get_rooms");

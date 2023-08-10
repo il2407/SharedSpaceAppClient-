@@ -12,6 +12,7 @@ import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../../../api/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URLS } from "../../../constants";
 
 const ApplyRequest = () => {
   const [subject, setSubject] = useState("");
@@ -47,7 +48,7 @@ const ApplyRequest = () => {
     });
     try {
       const response = await axios.post(
-        "http://localhost:5000/faults_from_group_id",
+        `${API_URLS.URL}/faults_from_group_id`,
         data,
         {
           headers: { "Content-Type": "application/json" },
@@ -68,13 +69,9 @@ const ApplyRequest = () => {
 
     try {
       console.log(data);
-      const response = await axios.post(
-        "http://localhost:5000/open_call",
-        data,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await axios.post(`${API_URLS.URL}/open_call`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
       console.log(response.data); // handle success response
       setOpenCallSuccess(true);
     } catch (error) {
