@@ -11,10 +11,13 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { API_URLS } from "../../../constants";
+import Toast from "react-native-toast-message"; // Import the previously created Toast component
 
 const AdminRequestPage = () => {
   const [faults, setFaults] = useState([]);
   const [groupID, setGroupID] = useState(0);
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
   const navigation = useNavigation();
 
@@ -42,16 +45,18 @@ const AdminRequestPage = () => {
       });
 
       if (response.data.status === "success") {
-        Alert.alert("Success", "Request deleted successfully!");
+        setToastMessage("Request deleted successfully!");
+        setShowToast(true);
         loadFaults();
       } else {
-        Alert.alert(
-          "Error",
+        setToastMessage(
           response.data.message || "Failed to delete the request."
         );
+        setShowToast(true);
       }
     } catch (error) {
-      Alert.alert("Error", "Failed to connect to the server.");
+      setToastMessage("Failed to connect to the server.");
+      setShowToast(true);
     }
   };
 
@@ -98,9 +103,9 @@ const AdminRequestPage = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>
-          Applications opened by roomates to you{" "}
+          Applications opened by roommates to you
         </Text>
-      </View>{" "}
+      </View>
       <View style={styles.faultsContainer}>
         <Text style={styles.faultsHeaderText}>Applications:</Text>
         <FlatList
@@ -120,6 +125,7 @@ const AdminRequestPage = () => {
       >
         <Text style={styles.submitButtonText}>Home</Text>
       </TouchableOpacity>
+      <Toast message={toastMessage} isVisible={showToast} />
     </View>
   );
 };

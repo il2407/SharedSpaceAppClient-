@@ -5,7 +5,7 @@ import { ListItem, Button } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { API_URLS } from "../../constants";
- // Import useFocusEffect
+// Import useFocusEffect
 
 const GroupDetailsPage = () => {
   const [groups, setGroups] = useState([]);
@@ -46,7 +46,9 @@ const GroupDetailsPage = () => {
 
   return (
     <View style={styles.container}>
-      <>My Appartements</>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>My Apartments</Text>
+      </View>
 
       <FlatList
         data={groups}
@@ -72,6 +74,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+  },
+  headerContainer: {
+    alignItems: "center",
+    paddingVertical: 15,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#333",
   },
 });
 
