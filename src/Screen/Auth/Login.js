@@ -17,6 +17,7 @@ import axios from "axios";
 import CustomTextInput from "../../Component/TextInputComponent";
 
 import { COLORS, API_URLS } from "../../constants";
+import Toast from "react-native-toast-message"; // Import the toast message library
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
@@ -28,35 +29,33 @@ export default function Login({ navigation }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [role, setRole] = useState("");
 
-  const handleLogin = () => {
-    console.log("in");
-    AsyncStorage.setItem("userEmail", email)
-      .then(() => {
-        console.log("Email saved successfully");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    user_login(
-      JSON.stringify({
-        email: email.toLocaleLowerCase(),
-        password: password,
-      })
-    )
-      .then((result) => {
-        if (result.status == 200) {
-          console.log("success");
-          // send another Axios request to get the user ID
-          handleGetUserIdDetails().catch((error) => {
-            console.error(error);
-          });
-        }
-      })
-      .catch((err) => {
-        setErrorMessage("                The Username/Password is incorrect"); // set error message if login fails
+  const handleLogin = async () => {
+    try {
+      console.log("in");
+      await AsyncStorage.setItem("userEmail", email);
 
-        console.error(err);
+      const result = await user_login(
+        JSON.stringify({
+          email: email.toLowerCase(),
+          password: password,
+        })
+      );
+
+      if (result.status === 200) {
+        console.log("success");
+        await handleGetUserIdDetails();
+      }
+    } catch (error) {
+      setErrorMessage("The Username/Password is incorrect");
+      console.error(error);
+
+      // Show the toast message for incorrect credentials
+      Toast.show({
+        type: "error",
+        text1: "Login Failed",
+        text2: "The Username/Password is incorrect",
       });
+    }
   };
 
   const handleGetGroupIdDetails = async () => {
@@ -124,20 +123,20 @@ export default function Login({ navigation }) {
   };
 
   useEffect(() => {
-    console.log("groupID", groupID);
+    setUserID[""];
+    setGroupID[""];
+  }, []);
 
+  useEffect(() => {
     if (userID !== "") {
       AsyncStorage.setItem("userID", userID);
       handleGetUserNameDetails();
-      handleGetGroupIdDetails();
     }
   }, [userID]);
 
   useEffect(() => {
-    if (groupID !== "") {
+    if (userName !== "" && groupID !== "") {
       AsyncStorage.setItem("groupID", groupID);
-      console.log("username is ", userName);
-
       AsyncStorage.setItem("userName", userName);
       AsyncStorage.setItem("role", role);
 
@@ -147,7 +146,7 @@ export default function Login({ navigation }) {
         navigation.navigate("OwnerPage");
       }
     }
-  }, [groupID]);
+  }, [userName, groupID, role]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -188,9 +187,12 @@ export default function Login({ navigation }) {
           <Text style={styles.createAccountText}>Create an account</Text>
         </TouchableOpacity>
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />{" "}
+      {/* Add this line for toast message */}
     </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -214,14 +216,6 @@ const styles = StyleSheet.create({
   errorText: {
     color: COLORS.ERROR_RED,
     alignSelf: "flex-end",
-  },
-  inputField: {
-    height: 40,
-    borderColor: COLORS.GRAY,
-    borderWidth: 1,
-    paddingLeft: 10,
-    marginVertical: 5,
-    borderRadius: 5,
   },
   actionContainer: {
     marginHorizontal: 20,

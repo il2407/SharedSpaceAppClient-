@@ -11284,6 +11284,11 @@
   "resolved" "https://registry.npmjs.org/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz"
   "version" "0.3.1"
 
+"react-native-toast-message@^2.1.6":
+  "integrity" "sha512-VctXuq20vmRa9AE13acaNZhrLcS3FaBS2zEevS3+vhBsnVZYG0FIlWIis9tVnpnNxUb3ART+BWtwQjzSttXTng=="
+  "resolved" "https://registry.npmjs.org/react-native-toast-message/-/react-native-toast-message-2.1.6.tgz"
+  "version" "2.1.6"
+
 "react-native-typing-animation@0.1.7":
   "integrity" "sha512-4H3rF9M+I2yAZpYJcY0Mb29TXkn98QK12rrKSY6LZj1BQD9NNmRZuNXzwX4XHapsIz+N/J8M3p27FOQPbfzqeg=="
   "resolved" "https://registry.npmjs.org/react-native-typing-animation/-/react-native-typing-animation-0.1.7.tgz"

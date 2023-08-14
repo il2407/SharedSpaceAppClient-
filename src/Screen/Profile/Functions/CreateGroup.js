@@ -13,6 +13,7 @@ import axios from "axios";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import { API_URLS } from "../../../constants";
+import Toast from "react-native-toast-message"; // Import the toast message library
 
 const CreateGroup = ({ navigation }) => {
   // const [userID, setUserID] = useState(0);
@@ -70,7 +71,6 @@ const CreateGroup = ({ navigation }) => {
         group_id: groupID,
         email: email,
       });
-
       if (response.status === 200 && response.data.status === "success") {
         showMessage({
           message: "Success",
@@ -178,7 +178,6 @@ const CreateGroup = ({ navigation }) => {
         <TouchableOpacity style={styles.button} onPress={handleCreateNewGroup}>
           <Text style={styles.buttonText}>Create New Group</Text>
         </TouchableOpacity>
-
         <TextInput
           style={styles.textInput}
           placeholder="Invite Email"
@@ -194,14 +193,15 @@ const CreateGroup = ({ navigation }) => {
         <TouchableOpacity style={styles.button} onPress={handleSendInvitation}>
           <Text style={styles.buttonText}>Send Invitation</Text>
         </TouchableOpacity>
-
         <TouchableOpacity
           style={styles.bottomButton}
           onPress={() => navigation.navigate("OwnerPage")}
         >
           <Text style={styles.bottomButtonText}>Home</Text>
         </TouchableOpacity>
-        <FlashMessage position="top" />
+        <FlashMessage position="top" /> {/* React Native Flash Message */}
+        <Toast ref={(ref) => Toast.setRef(ref)} />{" "}
+        {/* React Native Toast Message */}
       </View>
     </View>
   );
