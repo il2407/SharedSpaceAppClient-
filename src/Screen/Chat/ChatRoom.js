@@ -85,11 +85,7 @@ const ChatRoom = ({ route }) => {
         }}
       >
         <Button title="Back" onPress={() => navigation.goBack()} />{" "}
-        {/* Back button */}
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-          {username}
-        </Text>{" "}
-        {/* Display username */}
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>{username}</Text>{" "}
       </View>
 
       <Text style={{ marginBottom: 10 }}>{room}</Text>

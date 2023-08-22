@@ -9,5 +9,5 @@ export const COLORS = {
 
 // You can also define other constants like API endpoints, configurations, etc.
 export const API_URLS = {
-  URL: "https://liorgibor.pythonanywhere.com",
+  URL: "https://sharedspace-694cadbda576.herokuapp.com",
 };
