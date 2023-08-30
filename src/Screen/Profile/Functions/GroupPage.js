@@ -227,7 +227,7 @@ const GroupPage = ({ navigation }) => {
       <View style={styles.content}>
         {/* Display the member names in a table */}
         <View style={styles.table}>
-          <Text style={styles.tableHeader}>Appartement Members</Text>
+          <h2>Appartement Members</h2>
           {memberNames.map((name, index) => (
             <Text key={index} style={styles.tableRow}>
               {name}
