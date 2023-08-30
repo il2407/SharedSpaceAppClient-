@@ -220,7 +220,7 @@ const SplitPayments = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Debts List */}
+      <h2> Debts List </h2>
       <View style={styles.tableContainer}>
         <JsonList data={debts} />
       </View>
