@@ -156,6 +156,7 @@ const ManageTasks = () => {
         />
         <Button title="Add task" onPress={addTask} />
       </View>
+      <h3>Tasks List</h3>
       <FlatList
         data={tasks}
         keyExtractor={(task) => task.id}
